@@ -1,0 +1,8 @@
+ctrl + k + d      ---formating
+
+ctrl + k + c      ---comment code
+
+ctrl + k + u      ---uncomment code
+
+alt + up/down     ---up/down code line
+

@@ -1,0 +1,497 @@
+Create PROCEDURE [dbo].[PR_User_SelectByUserIDPassword]
+	@UserID int,
+	@Password nvarchar(200)
+as
+Select [dbo].[Users].[UserID],
+		[dbo].[Users].[UserName],
+		[dbo].[Users].[DisplayName]
+From [dbo].[Users]
+
+where [dbo].[Users].[UserID] = @UserID AND [dbo].[Users].[Password] = @Password
+
+------------------------------------------------------------------------------------------------------------
+
+Create PROCEDURE [dbo].[PR_User_Insert]
+	@UserName nvarchar(250),
+	@DisplayName nvarchar(200),
+	@Password nvarchar(200),
+	@MobileNo nvarchar(50),
+	@Email nvarchar(200)
+	
+AS
+Insert into  [dbo].[Users]
+(
+[dbo].[Users].[UserName],
+[dbo].[Users].[DisplayName],
+[dbo].[Users].[Password],
+[dbo].[Users].[MobileNo],
+[dbo].[Users].[Email]
+)
+
+Values
+(
+	@UserName,
+	@DisplayName,
+	@Password,
+	@MobileNo,
+	@Email
+)
+
+-----------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Country_SelectByUserID]
+	@UserID int
+AS
+Select 
+	[dbo].[Country].[CountryName],
+	[dbo].[Country].[CountryCode],
+	[dbo].[Country].[CountryID]
+from [dbo].[Country]
+
+where [dbo].[Country].[UserID] = @UserID
+
+-----------------------------------------------------------------------------------------------------------
+Create Procedure [dbo].[PR_Country_SelectByUserIDCountryID]
+	@UserID int,
+	@CountryID int
+AS
+Select 
+	[dbo].[Country].[CountryName],
+	[dbo].[Country].[CountryCode],
+	[dbo].[Country].[CountryID]
+from [dbo].[Country]
+
+where [dbo].[Country].[UserID] = @UserID AND [dbo].[Country].[CountryID] = @CountryID
+-----------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Country_Insert]
+	@UserID int,
+	@CountryName nvarchar(200),
+	@CountryCode nvarchar(50)
+AS
+Insert Into [dbo].[Country]
+(
+	[dbo].[Country].[UserID],
+	[dbo].[Country].[CountryName],
+	[dbo].[Country].[CountryCode]
+)
+Values
+(
+@UserID,
+@CountryName,
+@CountryCode
+)
+-----------------------------------------------------------------------------------------------------------
+Create Procedure [dbo].[PR_Country_UpdateByUserIDCountryID]
+	@UserID int,
+	@CountryID int,
+	@CountryName nvarchar(200),
+	@CountryCode nvarchar(50)
+AS
+Update [dbo].[Country]
+Set
+	[dbo].[Country].[CountryName]= @CountryName,
+	[dbo].[Country].[CountryCode]=@CountryCode
+
+Where [dbo].[Country].[UserID]=@UserID AND [dbo].[Country].[CountryID]=@CountryID
+
+-----------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Country_DeleteByUserIDCountryID]
+	@UserID int,
+	@CountryID int
+AS
+Delete
+From [dbo].[Country]
+
+Where [dbo].[Country].[UserID]=@UserID AND [dbo].[Country].[CountryID]=@CountryID
+
+-----------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_State_SelectByUserID]
+	@UserID int
+AS
+Select 
+	[dbo].[State].[StateID],
+	[dbo].[State].[StateName],
+	[dbo].[State].[StateCode],
+	[dbo].[Country].[CountryName],
+	[dbo].[State].[CountryID]
+from [dbo].[State]
+
+inner join [dbo].[Country]
+on [dbo].[Country].[CountryID] = [dbo].[State].[CountryID]
+
+where [dbo].[State].[UserID] = @UserID
+order by [dbo].[State].[StateName]
+
+-----------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_State_SelectByUserIDStateID]
+	@UserID int,
+	@StateID int
+AS
+Select 
+	[dbo].[State].[StateID],
+	[dbo].[State].[StateName],
+	[dbo].[State].[StateCode],
+	[dbo].[State].[CountryID]
+from [dbo].[State]
+
+where [dbo].[State].[UserID] = @UserID AND [dbo].[State].[StateID] = @StateID
+
+-----------------------------------------------------------------------------------------------------------
+
+
+Create Procedure [dbo].[PR_State_DeleteByUserIDStateID]
+	@UserID int,
+	@StateID int
+AS
+Delete
+from [dbo].[State]
+
+where [dbo].[State].[UserID] = @UserID AND [dbo].[State].[StateID] = @StateID
+
+-----------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_State_Insert]
+	@UserID int,
+	@CountryID int,
+	@StateName nvarchar(250),
+	@StateCode nvarchar(50)
+AS
+insert into [dbo].[State]
+(
+	[dbo].[State].[UserID],
+	[dbo].[State].[CountryID],
+	[dbo].[State].[StateName],
+	[dbo].[State].[StateCode]	
+)
+
+Values
+(
+	@UserID,
+	@CountryID,
+	@StateName,
+	@StateCode
+)
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_State_UpdateByUserIDStateID]
+	@UserID int,
+	@CountryID int,
+	@StateName nvarchar(250),
+	@StateCode nvarchar(50),
+	@StateID int
+AS
+Update [dbo]
+.[State]
+Set
+	[dbo].[State].[CountryID]=@CountryID,
+	[dbo].[State].[StateName]=@StateName,
+	[dbo].[State].[StateCode]=@StateCode
+
+Where [dbo].[State].[UserID]=@UserID AND [dbo].[State].[StateID]=@StateID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_City_UpdateByUserIDCityID]
+	@UserID int,
+	@CityID int,
+	@StateID int,
+	@CityName nvarchar(100),
+	@PinCode nvarchar(6)
+
+AS
+Update [dbo].[City]
+Set
+	[dbo].[City].[CityName] = @CityName,
+	[dbo].[City].[StateID]=@StateID,
+	[dbo].[City].[PinCode]=@PinCode
+
+Where [dbo].[City].[UserID]=@UserID AND [dbo].[City].[CityID]=@CityID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_City_Insert]
+	@UserID int,
+	@StateID int,
+	@CityName nvarchar(100),
+	@PinCode nvarchar(6)
+
+AS
+Insert into [dbo].[City]
+(
+	[dbo].[City].[UserID],
+	[dbo].[City].[CityName],
+	[dbo].[City].[StateID],
+	[dbo].[City].[PinCode]
+)
+Values
+(
+@UserID,
+@CityName,
+@StateID,
+@PinCode
+)
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_City_DeleteByUserIDCityID]
+	@UserID int,
+	@CityID int
+
+AS
+Delete
+from [dbo].[City]
+
+Where [dbo].[City].[UserID]=@UserID AND [dbo].[City].[CityID]=@CityID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_City_SelectByUserID]
+	@UserID int
+
+AS
+Select 
+	[dbo].[City].[CityName],
+	[dbo].[City].[PinCode],
+	[dbo].[State].[StateName]
+	
+From [dbo].[City]
+
+inner join [dbo].[State]
+on [dbo].[City].[StateID] = [dbo].[State].[StateID]
+
+Where [dbo].[City].[UserID]=@UserID 
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_City_SelectByUserIDCityID]
+	@UserID int,
+	@CityID int
+
+AS
+Select 
+	[dbo].[City].[CityName],
+	[dbo].[City].[PinCode],
+	[dbo].[City].[StateID]
+	
+From [dbo].[City]
+
+Where [dbo].[City].[UserID]=@UserID AND [dbo].[City].[CityID]=@CityID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_ContactCategory_SelectByUserIDContactCategoryID]
+	@UserID int,
+	@ContactCategoryID int
+
+AS
+Select 
+	[dbo].[ContactCategory].[ContactCategoryName],
+	[dbo].[ContactCategory].[ContactCategoryID]
+	
+From [dbo].[ContactCategory]
+
+Where [dbo].[ContactCategory].[UserID]=@UserID AND [dbo].[ContactCategory].[ContactCategoryID]=@ContactCategoryID
+
+------------------------------------------------------------------------------------------------------------
+Create Procedure [dbo].[PR_ContactCategory_SelectByUserID]
+	@UserID int
+
+AS
+Select 
+	[dbo].[ContactCategory].[ContactCategoryName],
+	[dbo].[ContactCategory].[ContactCategoryID]
+	
+From [dbo].[ContactCategory]
+
+Where [dbo].[ContactCategory].[UserID]=@UserID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_ContactCategory_DeleteByUserIDContactCategoryID]
+	@UserID int,
+	@ContactCategoryID int
+
+AS
+Delete 
+	
+From [dbo].[ContactCategory]
+Where [dbo].[ContactCategory].[UserID]=@UserID AND [dbo].[ContactCategory].[ContactCategoryID] = @ContactCategoryID
+
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_ContactCategory_UpdateByUserIDContactCategoryID]
+	@UserID int,
+	@ContactCategoryName nvarchar(200),
+	@ContactCategoryID int
+
+AS
+Update [dbo].[ContactCategory]
+set
+	[dbo].[ContactCategory].[ContactCategoryName]=@ContactCategoryName,
+	[dbo].[ContactCategory].[UserID] =@UserID
+
+Where [dbo].[ContactCategory].[UserID]=@UserID AND [dbo].[ContactCategory].[ContactCategoryID] = @ContactCategoryID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Contact_SelectByUserID]
+	@UserID int
+AS
+Select 
+	[dbo].[Contact].[Address],
+	[dbo].[Contact].[Age],
+	[dbo].[Contact].[BirthDate],
+	[dbo].[Contact].[BloodGroup],
+	[dbo].[City].[CityName],
+	[dbo].[ContactCategory].[ContactCategoryName],
+	[dbo].[Country].[CountryName],
+	[dbo].[Contact].[ContactName],
+	[dbo].[Contact].[ContactNo],
+	[dbo].[Contact].[Email],
+	[dbo].[State].[StateName],
+	[dbo].[Contact].[UserID]
+
+FROM [dbo].[Contact]
+
+inner join [dbo].[Country]
+on [dbo].[Country].[CountryID] = [dbo].[Contact].[CountryID]
+inner join [dbo].[City]
+on [dbo].[City].[CityID] = [dbo].[Contact].[CityID]
+inner join [dbo].[State]
+on [dbo].[State].[StateID] = [dbo].[Contact].[StateID]
+inner join [dbo].[ContactCategory]
+on [dbo].[ContactCategory].[ContactCategoryID] = [dbo].[Contact].[ContactCategoryID]
+
+where [dbo].[Contact].[UserID] = @UserID
+order by [dbo].[Contact].[ContactName]
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Contact_SelectByUserIContactID]
+	@UserID int,
+	@ContactID int
+
+AS
+Select 
+	[dbo].[Contact].[Address],
+	[dbo].[Contact].[Age],
+	[dbo].[Contact].[BirthDate],
+	[dbo].[Contact].[BloodGroup],
+	[dbo].[Contact].[CityID],
+	[dbo].[Contact].[ContactCategoryID],
+	[dbo].[Contact].[CountryID],
+	[dbo].[Contact].[ContactName],
+	[dbo].[Contact].[ContactNo],
+	[dbo].[Contact].[Email],
+	[dbo].[Contact].[StateID],
+	[dbo].[Contact].[UserID]
+
+FROM [dbo].[Contact]
+
+where [dbo].[Contact].[UserID] = @UserID AND [dbo].[Contact].[ContactID] =@ContactID
+
+------------------------------------------------------------------------------------------------------------
+
+
+Create Procedure [dbo].[PR_Contact_DeleteByUserIContactID]
+	@UserID int,
+	@ContactID int
+
+AS
+Delete  
+
+FROM [dbo].[Contact]
+
+where [dbo].[Contact].[UserID] = @UserID AND [dbo].[Contact].[ContactID] =@ContactID
+
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Contact_UpdateByUserIContactID]
+	@UserID int,
+	@ContactID int,
+	@ContactName nvarchar(200),
+	@Age int,
+	@Address nvarchar(500),
+	@BirthDate nvarchar(50),
+	@CityID int,
+	@ContactCategoryID int,
+	@ContactNo nvarchar(50),
+	@Email nvarchar(200),
+	@StateID int,
+	@BloodGroup nvarchar(10),
+	@CountryID int
+
+AS
+Update [dbo].[Contact]
+
+Set 
+	[dbo].[Contact].[Address] =@Address, 
+	[dbo].[Contact].[Age] =@Age,
+	[dbo].[Contact].[BirthDate]=@BirthDate,
+	[dbo].[Contact].[BloodGroup]=@BloodGroup,
+	[dbo].[Contact].[CityID]=@CityID,
+	[dbo].[Contact].[ContactCategoryID]=@ContactCategoryID,
+	[dbo].[Contact].[ContactName]=@ContactName,
+	[dbo].[Contact].[ContactNo]=@ContactNo,
+	[dbo].[Contact].[Email]=@Email,
+	[dbo].[Contact].[StateID]=@StateID,
+	[dbo].[Contact].[UserID]=@UserID,
+	[dbo].[Contact].[CountryID]=@CountryID
+
+
+where [dbo].[Contact].[UserID] = @UserID AND [dbo].[Contact].[ContactID] =@ContactID
+
+------------------------------------------------------------------------------------------------------------
+
+Create Procedure [dbo].[PR_Contact_Insert]
+	@UserID int,
+	@CountryID int,
+	@ContactName nvarchar(200),
+	@Age int,
+	@Address nvarchar(500),
+	@BirthDate nvarchar(50),
+	@CityID int,
+	@ContactCategoryID int,
+	@ContactNo nvarchar(50),
+	@Email nvarchar(200),
+	@StateID int,
+	@BloodGroup nvarchar(10)
+
+AS
+Insert into [dbo].[Contact]
+(
+[dbo].[Contact].[Address],
+[dbo].[Contact].[Age],
+[dbo].[Contact].[BirthDate],
+[dbo].[Contact].[BloodGroup],
+[dbo].[Contact].[CityID],
+[dbo].[Contact].[ContactCategoryID],
+[dbo].[Contact].[ContactName],
+[dbo].[Contact].[ContactNo],
+[dbo].[Contact].[Email],
+[dbo].[Contact].[StateID],
+[dbo].[Contact].[UserID],
+[dbo].[Contact].[CountryID]
+
+)
+Values(
+	@Address, 
+	@Age,
+	@BirthDate,
+	@BloodGroup,
+	@CityID,
+	@ContactCategoryID,
+	@ContactName,
+	@ContactNo,
+	@Email,
+	@StateID,
+	@UserID,
+	@CountryID
+)

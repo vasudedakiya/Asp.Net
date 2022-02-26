@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MultiUserAddressBook.master.cs" Inherits="Content_MultiUserAddressBook" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="~/content/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/content/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/content/js/bootstrap.bundle.min.js"></script>
+    <title>MultiUserAddressBook</title>
+    <asp:ContentPlaceHolder ID="cpHead" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>  <form id="form1" runat="server">
+        <div class="">
+            <div class="row" id="header">
+                <div class="col-md-3">
+                    <asp:Image ID="imgProfilePic" runat="server" Height="180" />
+                    <asp:Label runat="server" ID="lblError"></asp:Label>
+                </div>
+
+                <div class="col-md-8 text-right ">
+                    <h1>Darshan Uni</h1>
+                    <br />
+                    <h4>User : <asp:Label runat="server" ID="lblDisplayName"></asp:Label>&nbsp;&nbsp;|&nbsp;&nbsp;<asp:Button runat="server" Text="Log Out" ID="btnLogOut" Class="btn btn-dark btn-sm" OnClick="btnLogOut_Click"></asp:Button></h4>
+                                        <br />
+                    <span class="font-weight-bold">
+                        <asp:HyperLink ID="hlHome" runat="server" NavigateUrl="/AdminPanel/Home">Home</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlCountry" runat="server" NavigateUrl="/AdminPanel/Country/List">Country</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlState" runat="server" NavigateUrl="/AdminPanel/State/List">State</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlCity" runat="server" NavigateUrl="/AdminPanel/City/List">City</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlContectCategory" runat="server" NavigateUrl="/AdminPanel/ContactCategory/List">Contact Category</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlContect" runat="server" NavigateUrl="/AdminPanel/Contact/List">Contact</asp:HyperLink>
+                    </span>
+                    <hr />
+                </div>
+            </div>
+
+            <div class="raw" id="mainContent">
+                <div class="col-md-12">
+                    <asp:ContentPlaceHolder ID="cphMainContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </div>
+
+            <hr />
+            <div class="raw fixed-bottom" id="footer">
+                <div class="col-md-12 text-center font-weight-bold ">
+                    Vasu Dedakiya &nbsp;&nbsp;|&nbsp;&nbsp; 190540107043 &nbsp;&nbsp;|&nbsp;&nbsp; 190540107043@darshan.ac.in
+                </div>
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>

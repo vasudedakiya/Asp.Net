@@ -1,0 +1,20 @@
+﻿body {
+    text-align: justify;
+}
+
+#footer {
+    padding:30px;
+    background-color:rgb(78, 78, 50);
+    color:white;
+}
+
+#header {
+    padding:30px;
+     background-color:rgb(78, 78, 50);
+     color:white;
+}
+
+#mainContent{
+    padding-left: 80px;
+    padding-right: 80px;
+}

@@ -1,0 +1,61 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="DUMasterPage.master.cs" Inherits="content_DUMasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="~/content/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/content/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/content/js/bootstrap.bundle.min.js"></script>
+    <title></title>
+    <asp:ContentPlaceHolder ID="cphHade" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="">
+            <div class="row" id="header">
+                <div class="col-md-3">
+                    <img src="../control_1/download.png" />
+                </div>
+
+                <div class="col-md-8 text-right ">
+                    <h1>Darshan Uni</h1>
+                    <br />
+                    <h4>Rajkot - Morbi Highway, Gujarat-363650, INDIA</h4>
+                    <br />
+                    <span class="font-weight-bold">
+                        <asp:HyperLink ID="hlHome" runat="server" NavigateUrl="~/DUwebsite/Home.aspx">Home</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlAboutUs" runat="server" NavigateUrl="~/DUwebsite/AboutUs.aspx">AboutUS</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlDepartent" runat="server" NavigateUrl="~/DUwebsite/Department.aspx">Department</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlStaffMember" runat="server" NavigateUrl="~/DUwebsite/StaffMembers.aspx">Staff Member</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlNews" runat="server" NavigateUrl="~/DUwebsite/News.aspx">News</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlContectUs" runat="server" NavigateUrl="~/DUwebsite/ContactUs.aspx">Contect Us</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    </span>
+                </div>
+            </div>
+
+            <div class="raw" id="mainContent">
+                <div class="col-md-12">
+                    <asp:ContentPlaceHolder ID="cphMainContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </div>
+
+            <hr />
+            <div class="raw" id="footer">
+                <div class="col-md-12 text-center font-weight-bold ">
+                    Darshan Uni<br />
+                    <asp:HyperLink ID="hlFHome" runat="server" NavigateUrl="~/DUwebsite/Home.aspx">Home</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlFAboutUS" runat="server" NavigateUrl="~/DUwebsite/AboutUs.aspx">AboutUS</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlFDepartment" runat="server" NavigateUrl="~/DUwebsite/Department.aspx">Department</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlFStaffMember" runat="server" NavigateUrl="~/DUwebsite/StaffMembers.aspx">Staff Member</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlFNews" runat="server" NavigateUrl="~/DUwebsite/News.aspx">News</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <asp:HyperLink ID="hlFContectUs" runat="server" NavigateUrl="~/DUwebsite/ContactUs.aspx">Contect Us</asp:HyperLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>

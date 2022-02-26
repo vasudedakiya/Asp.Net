@@ -1,0 +1,32 @@
+//Step 1 (Establish the connection)
+        //Create empty connection object
+        SqlConnection objConn = new SqlConnection("data source = DESKTOP-BVTLLAS\\SQLEXPRESS; initial catalog = AddressBook; Integrated Security = True;");
+        //objConn.ConnectionString = "data source = DESKTOP-BVTLLAS\\SQLEXPRESS; initial catalog = AddressBook; Integrated Security = True";
+        //data source = DESKTOP-480B182\SQLEXPRESS; This is the source of the Data/Server Name.
+        //initial catalog = AddressBook; This is the name of the Database.
+        //Integrated Security = True; if it's True then consider as Windows Authentication. In case of False SQL authentication needs to be mentioned like;
+        //User ID = abc
+        //Password = aaa
+
+        objConn.Open(); //Open the connection
+        //Do your data related work.
+
+        //Step 2 (Prepare the Command object)
+        SqlCommand objCmd = objConn.CreateCommand();
+        //SqlCommand objCmd = new SqlCommand();
+        // objCmd.Connection = objConn;
+        objCmd.CommandType = CommandType.StoredProcedure;
+        //objCmd.CommandType = CommandType.Text;
+        //objCmd.CommandType = CommandType.TableDirect;
+        objCmd.CommandText = "PR_Country_SelectAll";
+
+        //objCmd.ExecuteNonQuery();     for INSERT/UPDATE/DELETE
+        //objCmd.ExecuteReader();       for SELECT
+        //objCmd.ExecuteScalar();       here only one Scalar value is being returned
+        //objCmd.ExecuteXMLReader();    for XML type of data
+
+        SqlDataReader objSDR = objCmd.ExecuteReader();
+        gvCountry.DataSource = objSDR;
+        gvCountry.DataBind();
+
+        objConn.Close(); //Close the connection
